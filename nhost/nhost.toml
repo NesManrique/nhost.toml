@@ -24,7 +24,7 @@ enableRemoteSchemaPermissions = false
 version = 16
 
 [auth]
-version = '0.19.1'
+version = '0.21.2'
 
 [auth.redirections]
 clientUrl = 'http://localhost:3000'

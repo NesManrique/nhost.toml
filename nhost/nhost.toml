@@ -140,22 +140,22 @@ version = '0.3.4'
 [observability.grafana]
 adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
 
-hasura:
-  resources:
-    compute:
-      cpu: 500
-      memory: 384
-    replicas: 1
-    networking:
-        ingresses:
-            - fqdn: ["hasura.nhost.nestormanrique.com"]
+[hasura.resources.compute]
+cpu = 500
+memory = 384
 
-auth:
-  resources:
-    compute:
-      cpu: 500
-      memory: 256
-    replicas: 1
-    networking:
-        ingresses:
-            - fqdn: ["auth.nhost.nestormanrique.com"]
+[hasura.resources]
+replicas = 1
+
+[[hasura.resources.networking.ingresses]]
+fqdn = ["hasura.nhost.nestormanrique.com"]
+
+[auth.resources.compute]
+cpu = 500
+memory = 256
+
+[auth.resources]
+replicas = 1
+
+[[auth.resources.networking.ingresses]]
+fqdn = ["auth.nhost.nestormanrique.com"]

@@ -148,7 +148,7 @@ memory = 384
 replicas = 1
 
 [[hasura.resources.networking.ingresses]]
-fqdn = ["hasura.nhost.nestormanrique.com"]
+fqdn = ["hasura.nhost.nestormanrique.com","another-hasura.nhost.nestormanrique.com"]
 
 [auth.resources.compute]
 cpu = 500
@@ -158,4 +158,4 @@ memory = 256
 replicas = 1
 
 [[auth.resources.networking.ingresses]]
-fqdn = ["auth.nhost.nestormanrique.com"]
+fqdn = ["auth.nhost.nestormanrique.com","another-auth.nhost.nestormanrique.com"]

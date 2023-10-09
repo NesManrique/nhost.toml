@@ -7,155 +7,159 @@ value = 'Sayonara'
 name = 'GREET_TYPE'
 value = '{{ secrets.GREET_TYPE }}'
 
-[hasura]
-version = 'v2.25.1-ce'
-adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
-webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
-
-[[hasura.jwtSecrets]]
-type = 'HS256'
-key = '{{ secrets.HASURA_GRAPHQL_JWT_SECRET }}'
-
-[hasura.settings]
-enableRemoteSchemaPermissions = false
-
-[functions]
-[functions.node]
-version = 16
-
 [auth]
-version = '0.21.2'
+  [auth.method]
+    [auth.method.anonymous]
+      enabled = false
+    [auth.method.emailPassword]
+      emailVerificationRequired = true
+      hibpEnabled = false
+      passwordMinLength = 9
+    [auth.method.emailPasswordless]
+      enabled = false
 
-[auth.redirections]
-clientUrl = 'http://localhost:3000'
+    [auth.method.oauth]
+      [auth.method.oauth.apple]
+        enabled = false
+      [auth.method.oauth.azuread]
+        enabled = false
+        tenant = "common"
+      [auth.method.oauth.bitbucket]
+        enabled = false
+      [auth.method.oauth.discord]
+        enabled = false
+      [auth.method.oauth.facebook]
+        enabled = false
+      [auth.method.oauth.github]
+        enabled = false
+      [auth.method.oauth.gitlab]
+        enabled = false
+      [auth.method.oauth.google]
+        enabled = false
+      [auth.method.oauth.linkedin]
+        enabled = false
+      [auth.method.oauth.spotify]
+        enabled = false
+      [auth.method.oauth.strava]
+        enabled = false
+      [auth.method.oauth.twitch]
+        enabled = false
+      [auth.method.oauth.twitter]
+        enabled = false
+      [auth.method.oauth.windowslive]
+        enabled = false
+      [auth.method.oauth.workos]
+        enabled = false
+    
+    [auth.method.smsPasswordless]
+      enabled = false
+    
+    [auth.method.webauthn]
+      [auth.method.webauthn.attestation]
+        timeout = 60000
+      enabled = false
+  
+  [auth.redirections]
+    allowedUrls = []
+    clientUrl = "http://localhost:3000"
+  
+  [auth.resources.compute]
+    cpu = 250
+    memory = 256
+  
+  [[auth.resources.networking.ingresses]]
+    fqdn = ["auth.nhost.nestormanrique.com"]
+  
+  auth.resources.replicas = 1
+  
+  [auth.session.accessToken]
+    customClaims = []
+    expiresIn = 900
+  
+  [auth.session.refreshToken]
+    expiresIn = 43200
+  
+  [auth.signUp]
+    enabled = true
+  
+  [auth.totp]
+    enabled = false
+  
+  [auth.user.email]
+    allowed = []
+    blocked = []
+  
+  [auth.user.emailDomains]
+    allowed = []
+    blocked = []
+  
+  [auth.user.gravatar]
+    default = "blank"
+    enabled = true
+    rating = "g"
+  
+  [auth.user.locale]
+    allowed = ["en"]
+    default = "en"
+  
+  [auth.user.roles]
+    allowed = ["user", "me"]
+    default = "user"
+  
+  auth.version = "0.21.2"
 
-[auth.signUp]
-enabled = true
+[functions.node]
+  version = 18
 
-[auth.user]
-[auth.user.roles]
-default = 'user'
-allowed = ['user', 'me']
+[global]
+  environment = []
 
-[auth.user.locale]
-default = 'en'
-allowed = ['en']
+[hasura]
+  adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
+  
+  [hasura.events]
+    httpPoolSize = 100
+  
+  [[hasura.jwtSecrets]]
+    key = '{{ secrets.HASURA_GRAPHQL_JWT_SECRET }}'
+    type = "HS256"
+  
+  [hasura.logs]
+    level = "warn"
+  
+  [hasura.resources.compute]
+    cpu = 250
+    memory = 896
+  
+  hasura.resources.replicas = 1
+  
+  [hasura.settings]
+    corsDomain = ["*"]
+    devMode = true
+    enableAllowList = false
+    enableConsole = true
+    enableRemoteSchemaPermissions = false
+    enabledAPIs = ["metadata", "graphql", "pgdump", "config"]
+    liveQueriesMultiplexedRefetchInterval = 1000
+  
+  hasura.version = "v2.33.4-ce"
+  hasura.webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
 
-[auth.user.gravatar]
-enabled = true
-default = 'blank'
-rating = 'g'
+[observability.grafana]
+  adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
 
-[auth.user.email]
+[postgres.resources.compute]
+  cpu = 250
+  memory = 640
 
-[auth.user.emailDomains]
-
-[auth.session]
-[auth.session.accessToken]
-expiresIn = 900
-
-[auth.session.refreshToken]
-expiresIn = 43200
-
-[auth.method]
-[auth.method.anonymous]
-enabled = false
-
-[auth.method.emailPasswordless]
-enabled = false
-
-[auth.method.emailPassword]
-hibpEnabled = false
-emailVerificationRequired = true
-passwordMinLength = 9
-
-[auth.method.smsPasswordless]
-enabled = false
-
-[auth.method.oauth]
-[auth.method.oauth.apple]
-enabled = false
-
-[auth.method.oauth.azuread]
-tenant = 'common'
-enabled = false
-
-[auth.method.oauth.bitbucket]
-enabled = false
-
-[auth.method.oauth.discord]
-enabled = false
-
-[auth.method.oauth.facebook]
-enabled = false
-
-[auth.method.oauth.github]
-enabled = false
-
-[auth.method.oauth.gitlab]
-enabled = false
-
-[auth.method.oauth.google]
-enabled = false
-
-[auth.method.oauth.linkedin]
-enabled = false
-
-[auth.method.oauth.spotify]
-enabled = false
-
-[auth.method.oauth.strava]
-enabled = false
-
-[auth.method.oauth.twitch]
-enabled = false
-
-[auth.method.oauth.twitter]
-enabled = false
-
-[auth.method.oauth.windowslive]
-enabled = false
-
-[auth.method.oauth.workos]
-enabled = false
-
-[auth.method.webauthn]
-enabled = false
-
-[auth.method.webauthn.attestation]
-timeout = 60000
-
-[auth.totp]
-enabled = false
-
-[postgres]
-version = '14.5-20230104-1'
+postgres.resources.replicas = 1
+postgres.version = "14.6-20230927-1"
 
 [provider]
 
-[storage]
-version = '0.3.4'
+[storage.resources.compute]
+  cpu = 250
+  memory = 256
 
-[observability]
-[observability.grafana]
-adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
-
-[hasura.resources.compute]
-cpu = 500
-memory = 384
-
-[hasura.resources]
-replicas = 1
-
-[[hasura.resources.networking.ingresses]]
-fqdn = ["hasura.nhost.nestormanrique.com","another-hasura.nhost.nestormanrique.com"]
-
-[auth.resources.compute]
-cpu = 500
-memory = 256
-
-[auth.resources]
-replicas = 1
-
-[[auth.resources.networking.ingresses]]
-fqdn = ["auth.nhost.nestormanrique.com","another-auth.nhost.nestormanrique.com"]
+storage.resources.replicas = 1
+storage.version = "0.4.0"

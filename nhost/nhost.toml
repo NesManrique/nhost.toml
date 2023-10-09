@@ -111,9 +111,6 @@ value = '{{ secrets.GREET_TYPE }}'
 [functions.node]
   version = 18
 
-[global]
-  environment = []
-
 [hasura]
   adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
   

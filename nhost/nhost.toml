@@ -1,3 +1,123 @@
+[auth]
+version = "0.21.2"
+
+[auth.method.anonymous]
+enabled = false
+
+[auth.method.emailPassword]
+emailVerificationRequired = true
+hibpEnabled = false
+passwordMinLength = 9
+
+[auth.method.emailPasswordless]
+enabled = false
+
+[auth.method.oauth.apple]
+enabled = false
+
+[auth.method.oauth.azuread]
+enabled = false
+tenant = "common"
+
+[auth.method.oauth.bitbucket]
+enabled = false
+
+[auth.method.oauth.discord]
+enabled = false
+
+[auth.method.oauth.facebook]
+enabled = false
+
+[auth.method.oauth.github]
+enabled = false
+
+[auth.method.oauth.gitlab]
+enabled = false
+
+[auth.method.oauth.google]
+enabled = false
+
+[auth.method.oauth.linkedin]
+enabled = false
+
+[auth.method.oauth.spotify]
+enabled = false
+
+[auth.method.oauth.strava]
+enabled = false
+
+[auth.method.oauth.twitch]
+enabled = false
+
+[auth.method.oauth.twitter]
+enabled = false
+
+[auth.method.oauth.windowslive]
+enabled = false
+
+[auth.method.oauth.workos]
+enabled = false
+
+[auth.method.smsPasswordless]
+enabled = false
+
+[auth.method.webauthn]
+enabled = false
+
+  [auth.method.webauthn.attestation]
+  timeout = 60000
+
+  [auth.redirections]
+  allowedUrls = [ ]
+  clientUrl = "http://localhost:3000"
+
+  [auth.resources]
+  replicas = 1
+
+    [auth.resources.compute]
+    cpu = 250
+    memory = 256
+
+[[auth.resources.networking.ingresses]]
+fqdn = [ "auth.nhost.nestormanrique.com" ]
+
+[auth.session.accessToken]
+customClaims = [ ]
+expiresIn = 900
+
+[auth.session.refreshToken]
+expiresIn = 43200
+
+  [auth.signUp]
+  enabled = true
+
+  [auth.totp]
+  enabled = false
+
+[auth.user.email]
+allowed = [ ]
+blocked = [ ]
+
+[auth.user.emailDomains]
+allowed = [ ]
+blocked = [ ]
+
+[auth.user.gravatar]
+default = "blank"
+enabled = true
+rating = "g"
+
+[auth.user.locale]
+allowed = [ "en" ]
+default = "en"
+
+[auth.user.roles]
+allowed = [ "user", "me" ]
+default = "user"
+
+[functions.node]
+version = 18
+
 [global]
 [[global.environment]]
 name = 'GREET_PLAIN'
@@ -7,155 +127,57 @@ value = 'Sayonara'
 name = 'GREET_TYPE'
 value = '{{ secrets.GREET_TYPE }}'
 
-[auth]
-  [auth.method]
-    [auth.method.anonymous]
-      enabled = false
-    [auth.method.emailPassword]
-      emailVerificationRequired = true
-      hibpEnabled = false
-      passwordMinLength = 9
-    [auth.method.emailPasswordless]
-      enabled = false
+[hasura]
+adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
+version = "v2.33.4-ce"
+webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
 
-    [auth.method.oauth]
-      [auth.method.oauth.apple]
-        enabled = false
-      [auth.method.oauth.azuread]
-        enabled = false
-        tenant = "common"
-      [auth.method.oauth.bitbucket]
-        enabled = false
-      [auth.method.oauth.discord]
-        enabled = false
-      [auth.method.oauth.facebook]
-        enabled = false
-      [auth.method.oauth.github]
-        enabled = false
-      [auth.method.oauth.gitlab]
-        enabled = false
-      [auth.method.oauth.google]
-        enabled = false
-      [auth.method.oauth.linkedin]
-        enabled = false
-      [auth.method.oauth.spotify]
-        enabled = false
-      [auth.method.oauth.strava]
-        enabled = false
-      [auth.method.oauth.twitch]
-        enabled = false
-      [auth.method.oauth.twitter]
-        enabled = false
-      [auth.method.oauth.windowslive]
-        enabled = false
-      [auth.method.oauth.workos]
-        enabled = false
-    
-    [auth.method.smsPasswordless]
-      enabled = false
-    
-    [auth.method.webauthn]
-      [auth.method.webauthn.attestation]
-        timeout = 60000
-      enabled = false
-  
-  [auth.redirections]
-    allowedUrls = []
-    clientUrl = "http://localhost:3000"
-  
-  [auth.resources.compute]
+  [hasura.events]
+  httpPoolSize = 100
+
+  [[hasura.jwtSecrets]]
+  key = '{{ secrets.HASURA_GRAPHQL_JWT_SECRET }}'
+  type = "HS256"
+
+  [hasura.logs]
+  level = "warn"
+
+  [hasura.resources]
+  replicas = 1
+
+    [hasura.resources.compute]
+    cpu = 250
+    memory = 896
+
+  [hasura.settings]
+  corsDomain = [ "*" ]
+  devMode = true
+  enableAllowList = false
+  enableConsole = true
+  enableRemoteSchemaPermissions = false
+  enabledAPIs = [ "metadata", "graphql", "pgdump", "config" ]
+  liveQueriesMultiplexedRefetchInterval = 1000
+
+[observability.grafana]
+adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
+
+[postgres]
+version = "14.6-20230927-1"
+
+  [postgres.resources]
+  replicas = 1
+
+    [postgres.resources.compute]
+    cpu = 250
+    memory = 640
+
+[storage]
+version = "0.4.0"
+
+  [storage.resources]
+  replicas = 1
+
+    [storage.resources.compute]
     cpu = 250
     memory = 256
   
-  [[auth.resources.networking.ingresses]]
-    fqdn = ["auth.nhost.nestormanrique.com"]
-  
-  auth.resources.replicas = 1
-  
-  [auth.session.accessToken]
-    customClaims = []
-    expiresIn = 900
-  
-  [auth.session.refreshToken]
-    expiresIn = 43200
-  
-  [auth.signUp]
-    enabled = true
-  
-  [auth.totp]
-    enabled = false
-  
-  [auth.user.email]
-    allowed = []
-    blocked = []
-  
-  [auth.user.emailDomains]
-    allowed = []
-    blocked = []
-  
-  [auth.user.gravatar]
-    default = "blank"
-    enabled = true
-    rating = "g"
-  
-  [auth.user.locale]
-    allowed = ["en"]
-    default = "en"
-  
-  [auth.user.roles]
-    allowed = ["user", "me"]
-    default = "user"
-  
-  auth.version = "0.21.2"
-
-[functions.node]
-  version = 18
-
-[hasura]
-  version = "v2.33.4-ce"
-  webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
-  adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
-  
-  [hasura.events]
-    httpPoolSize = 100
-  
-  [[hasura.jwtSecrets]]
-    key = '{{ secrets.HASURA_GRAPHQL_JWT_SECRET }}'
-    type = "HS256"
-  
-  [hasura.logs]
-    level = "warn"
-  
-  [hasura.resources.compute]
-    cpu = 250
-    memory = 896
-  
-  hasura.resources.replicas = 1
-  
-  [hasura.settings]
-    corsDomain = ["*"]
-    devMode = true
-    enableAllowList = false
-    enableConsole = true
-    enableRemoteSchemaPermissions = false
-    enabledAPIs = ["metadata", "graphql", "pgdump", "config"]
-    liveQueriesMultiplexedRefetchInterval = 1000
-
-[observability.grafana]
-  adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
-
-[postgres.resources.compute]
-  cpu = 250
-  memory = 640
-
-postgres.resources.replicas = 1
-postgres.version = "14.6-20230927-1"
-
-[provider]
-
-[storage.resources.compute]
-  cpu = 250
-  memory = 256
-
-storage.resources.replicas = 1
-storage.version = "0.4.0"

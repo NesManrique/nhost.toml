@@ -112,6 +112,8 @@ value = '{{ secrets.GREET_TYPE }}'
   version = 18
 
 [hasura]
+  version = "v2.33.4-ce"
+  webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
   adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
   
   [hasura.events]
@@ -138,9 +140,6 @@ value = '{{ secrets.GREET_TYPE }}'
     enableRemoteSchemaPermissions = false
     enabledAPIs = ["metadata", "graphql", "pgdump", "config"]
     liveQueriesMultiplexedRefetchInterval = 1000
-  
-  hasura.version = "v2.33.4-ce"
-  hasura.webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
 
 [observability.grafana]
   adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'

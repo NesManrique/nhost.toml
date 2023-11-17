@@ -6,7 +6,6 @@ This is a demo of the new configuration format nhost will use to keep the develo
 
 We are leveraging [cuelang](https://cuelang.org) to define the schema and validate the configuration. While we update our documentation the schema can be found [here](https://github.com/nhost/cli/blob/main/vendor/github.com/nhost/be/services/mimir/schema/schema.cue).
 
-
 ## Files
 
 Two files are relevant to configure your project:

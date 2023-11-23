@@ -118,6 +118,9 @@ default = "user"
 [functions.node]
 version = 18
 
+[[functions.resources.networking.ingresses]]
+fqdn = [ "functions.nhost.nestormanrique.com" ]
+
 [global]
 [[global.environment]]
 name = 'GREET_PLAIN'

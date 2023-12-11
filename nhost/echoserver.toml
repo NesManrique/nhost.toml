@@ -1,0 +1,20 @@
+name = 'echo-server'
+command = ["node", "webserver", "--port", "8000"]
+
+[image]
+image = 'ealen/echo-server:latest'
+
+[[ports]]
+port = 8000
+type = 'http'
+publish = true
+
+[[ports.ingresses]]
+fqdn = [ "echo.nhost.nestormanrique.com" ]
+
+[resources]
+replicas = 1
+
+[resources.compute]
+cpu = 62
+memory = 128

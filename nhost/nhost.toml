@@ -63,7 +63,6 @@ enabled = false
 
 [auth.method.webauthn]
 enabled = false
-id = ""
 
 [auth.method.webauthn.attestation]
 timeout = 60000

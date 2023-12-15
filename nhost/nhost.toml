@@ -64,19 +64,22 @@ enabled = false
 [auth.method.webauthn]
 enabled = false
 
-  [auth.method.webauthn.attestation]
-  timeout = 60000
+[auth.method.webauthn]
+id = ""
 
-  [auth.redirections]
-  allowedUrls = [ ]
-  clientUrl = "http://localhost:3000"
+[auth.method.webauthn.attestation]
+timeout = 60000
 
-  [auth.resources]
-  replicas = 1
+[auth.redirections]
+allowedUrls = [ ]
+clientUrl = "http://localhost:3000"
 
-    [auth.resources.compute]
-    cpu = 250
-    memory = 256
+[auth.resources]
+replicas = 1
+
+[auth.resources.compute]
+cpu = 250
+memory = 256
 
 [[auth.resources.networking.ingresses]]
 fqdn = [ "auth.nhost.nestormanrique.com" ]
@@ -173,6 +176,25 @@ version = "14.6-20230927-1"
     [postgres.resources.compute]
     cpu = 250
     memory = 640
+
+  [postgres.settings]
+  maxConnections = 100
+  sharedBuffers = '256MB'
+  effectiveCacheSize = '768MB'
+  maintenanceWorkMem = '64MB'
+  checkpointCompletionTarget = 0.9
+  walBuffers = "-1"
+  defaultStatisticsTarget = 100
+  randomPageCost = 1.1
+  effectiveIOConcurrency = 200
+  workMem = '1310kB'
+  hugePages = 'off'
+  minWalSize = '80MB'
+  maxWalSize = '1GB'
+  maxWorkerProcesses = 8
+  maxParallelWorkersPerGather = 2
+  maxParallelWorkers = 8
+  maxParallelMaintenanceWorkers = 2
 
 [storage]
 version = "0.4.0"

@@ -63,8 +63,6 @@ enabled = false
 
 [auth.method.webauthn]
 enabled = false
-
-[auth.method.webauthn]
 id = ""
 
 [auth.method.webauthn.attestation]

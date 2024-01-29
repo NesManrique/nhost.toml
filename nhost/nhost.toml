@@ -194,7 +194,7 @@ version = "14.6-20230927-1"
   maxParallelMaintenanceWorkers = 2
 
 [storage]
-version = "0.4.0"
+version = "0.6.0"
 
   [storage.resources]
   replicas = 1
